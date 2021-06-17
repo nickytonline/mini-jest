@@ -3,4 +3,10 @@ function describe(description, callback) {
   callback();
 }
 
+describe.skip = function(description, callback) {
+  console.log(description);
+
+  return;
+}
+
 module.exports = { describe }
