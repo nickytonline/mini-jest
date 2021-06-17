@@ -9,4 +9,6 @@ describe.skip = function(description, callback) {
   return;
 }
 
+// TODO: Implement describe.only possibly via parsing test file AST?
+
 module.exports = { describe }
