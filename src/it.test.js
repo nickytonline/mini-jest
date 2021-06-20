@@ -1,12 +1,12 @@
-const { it: miniIt } = require("./it");
+const { it: miniIt } = require('./it');
 
-describe("it", () => {
+describe('it', () => {
   beforeEach(() => {
     globalThis.console.log = jest.fn();
   });
   it(`should run it's callback and log a description`, () => {
     const callback = jest.fn();
-    const description = "Best test description ever";
+    const description = 'Best test description ever';
 
     miniIt(description, callback);
 
@@ -17,7 +17,7 @@ describe("it", () => {
 
   it(`should skip the it`, () => {
     const callback = jest.fn();
-    const description = "Best test description ever";
+    const description = 'Best test description ever';
 
     miniIt.skip(description, callback);
 

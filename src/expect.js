@@ -4,14 +4,14 @@ function expect(actualValue) {
   return {
     toBe(expectedValue) {
       if (expectedValue == actualValue) {
-        console.log('✅')
+        console.log('✅');
       } else {
-        console.error(`❌ expected ${actualValue} to equal ${expectedValue}`)
+        console.error(`❌ expected ${actualValue} to equal ${expectedValue}`);
       }
-    }
-  }
+    },
+  };
 }
 
 module.exports = {
-  expect
-}
+  expect,
+};

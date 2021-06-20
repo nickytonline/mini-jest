@@ -4,12 +4,12 @@ function it(description, callback) {
   callback();
 }
 
-it.skip = function(description, callback) {
+it.skip = function (description, callback) {
   console.log(description);
 
   return;
-}
+};
 
 module.exports = {
-  it
-}
+  it,
+};
