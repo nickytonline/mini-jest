@@ -37,4 +37,47 @@ describe('expect', () => {
       globalThis.console.error.mockClear();
     });
   });
+
+  it(`should have deeply equality when using toEqual`, () => {
+    const testObject = { prop1: 'yolo', prop2: "'sup" };
+    const newReferenceToTestObject = testObject;
+
+    [
+      { actual: testObject, equalityValue: newReferenceToTestObject },
+      { actual: true, equalityValue: true },
+      { actual: 12, equalityValue: 12 },
+      { actual: !false, equalityValue: true },
+      { actual: 'yolo', equalityValue: 'yolo' },
+    ].forEach(({ actual, equalityValue }) => {
+      miniExpect(actual).toEqual(equalityValue);
+      expect(globalThis.console.log).toHaveBeenCalledTimes(1);
+      expect(globalThis.console.log).toHaveBeenCalledWith('✅');
+      expect(globalThis.console.error).not.toHaveBeenCalled();
+
+      globalThis.console.log.mockClear();
+      globalThis.console.error.mockClear();
+    });
+  });
+
+  it(`should not have deeply equality when using toEqual`, () => {
+    const testObject = { prop1: 'yolo', prop2: "'sup" };
+    const newReferenceToTestObject = testObject;
+
+    [
+      { actual: testObject, equalityValue: { ...newReferenceToTestObject } },
+      { actual: true, equalityValue: false },
+      { actual: 12, equalityValue: 13 },
+      { actual: 'yolo', equalityValue: 'yellow' },
+    ].forEach(({ actual, equalityValue }) => {
+      !miniExpect(actual).toEqual(equalityValue);
+      expect(globalThis.console.log).not.toHaveBeenCalled();
+      expect(globalThis.console.error).toHaveBeenCalledTimes(1);
+      expect(globalThis.console.error).toHaveBeenCalledWith(
+        `❌ expected ${actual} to equal ${equalityValue}`,
+      );
+
+      globalThis.console.log.mockClear();
+      globalThis.console.error.mockClear();
+    });
+  });
 });

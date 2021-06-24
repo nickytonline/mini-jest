@@ -9,6 +9,13 @@ function expect(actualValue) {
         console.error(`❌ expected ${actualValue} to equal ${expectedValue}`);
       }
     },
+    toEqual(expectedValue) {
+      if (expectedValue === actualValue) {
+        console.log('✅');
+      } else {
+        console.error(`❌ expected ${actualValue} to equal ${expectedValue}`);
+      }
+    },
   };
 }
 
