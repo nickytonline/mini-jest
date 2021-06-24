@@ -49,12 +49,12 @@ describe('expect', () => {
     });
   });
 
-  it(`should have deeply equality when using toEqual`, () => {
+  it(`should have equality (not deep) when using toEqual`, () => {
     const testObject = { prop1: 'yolo', prop2: "'sup" };
     const newReferenceToTestObject = testObject;
 
     [
-      { actual: testObject, equalityValue: newReferenceToTestObject },
+      { actual: testObject, equalityValue: { ...newReferenceToTestObject } },
       { actual: true, equalityValue: true },
       { actual: 12, equalityValue: 12 },
       { actual: !false, equalityValue: true },
@@ -70,12 +70,12 @@ describe('expect', () => {
     });
   });
 
-  it(`should not have deeply equality when using toEqual`, () => {
+  it(`should not have equality (not deep) when using toEqual`, () => {
     const testObject = { prop1: 'yolo', prop2: "'sup" };
     const newReferenceToTestObject = testObject;
 
     [
-      { actual: testObject, equalityValue: { ...newReferenceToTestObject } },
+      { actual: testObject, equalityValue: { prop3: 'hello' } },
       { actual: true, equalityValue: false },
       { actual: 12, equalityValue: 13 },
       { actual: 'yolo', equalityValue: 'yellow' },
