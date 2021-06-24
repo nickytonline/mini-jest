@@ -5,7 +5,7 @@ const { prettyPrint } = require('./utilities');
 function expect(actualValue) {
   return {
     toBe(expectedValue) {
-      if (expectedValue == actualValue) {
+      if (Object.is(expectedValue, actualValue)) {
         console.log('✅');
       } else {
         console.error(
@@ -16,7 +16,7 @@ function expect(actualValue) {
       }
     },
     toEqual(expectedValue) {
-      if (expectedValue === actualValue) {
+      if (expectedValue == actualValue) {
         console.log('✅');
       } else {
         console.error(

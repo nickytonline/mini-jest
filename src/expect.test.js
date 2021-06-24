@@ -7,10 +7,14 @@ describe('expect', () => {
     globalThis.console.error = jest.fn();
   });
 
-  it(`should coerce equality when using toBe`, () => {
+  it(`should have deep equality when using toBe`, () => {
+    const testObject = { prop1: 'yolo', prop2: "'sup" };
+    const newReferenceToTestObject = testObject;
+
     [
-      { actual: '1', equalityValue: 1 },
-      { actual: true, equalityValue: true },
+      { actual: testObject, equalityValue: newReferenceToTestObject },
+      { actual: 1, equalityValue: 1 },
+      { actual: true, equalityValue: !!true },
       { actual: false, equalityValue: false },
     ].forEach(({ actual, equalityValue }) => {
       miniExpect(actual).toBe(equalityValue);
@@ -23,10 +27,13 @@ describe('expect', () => {
     });
   });
 
-  it(`should fail coercion equality when using toBe`, () => {
+  it(`should fail if not deep equality when using toBe`, () => {
     [
       { actual: false, equalityValue: true },
-      { actual: NaN, equalityValue: NaN },
+      { actual: 'yolo', equalityValue: 'yellow' },
+      { actual: 12, equalityValue: 1 },
+      { actual: 0, equalityValue: -0 },
+      { actual: +0, equalityValue: -0 },
     ].forEach(({ actual, equalityValue }) => {
       miniExpect(actual).toBe(equalityValue);
       expect(globalThis.console.error).toHaveBeenCalledTimes(1);
