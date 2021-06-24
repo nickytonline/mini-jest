@@ -7,6 +7,49 @@ describe('expect', () => {
     globalThis.console.error = jest.fn();
   });
 
+  describe('not', () => {
+    it(`should not have deep equality when using .not.toBe`, () => {
+      const testObject = { prop1: 'yolo', prop2: "'sup" };
+      const newReferenceToTestObject = { prop1: 'yolo' };
+
+      [
+        { actual: testObject, equalityValue: newReferenceToTestObject },
+        { actual: 1, equalityValue: 12 },
+        { actual: true, equalityValue: false },
+        { actual: 'hi', equalityValue: 'yo' },
+      ].forEach(({ actual, equalityValue }) => {
+        miniExpect(actual).not.toBe(equalityValue);
+        expect(globalThis.console.log).toHaveBeenCalledTimes(1);
+        expect(globalThis.console.log).toHaveBeenCalledWith('✅');
+        expect(globalThis.console.error).not.toHaveBeenCalled();
+
+        globalThis.console.log.mockClear();
+        globalThis.console.error.mockClear();
+      });
+    });
+
+    it(`should not have equality (not deep) when using .not.toEqual`, () => {
+      const testObject = { prop1: 'yolo', prop2: "'sup" };
+      const testObject2 = { prop2: "'sup" };
+
+      [
+        { actual: testObject, equalityValue: testObject2 },
+        { actual: true, equalityValue: false },
+        { actual: 12, equalityValue: 11 },
+        { actual: false, equalityValue: true },
+        { actual: 'yolo', equalityValue: 'yo' },
+      ].forEach(({ actual, equalityValue }) => {
+        miniExpect(actual).not.toEqual(equalityValue);
+        expect(globalThis.console.log).toHaveBeenCalledTimes(1);
+        expect(globalThis.console.log).toHaveBeenCalledWith('✅');
+        expect(globalThis.console.error).not.toHaveBeenCalled();
+
+        globalThis.console.log.mockClear();
+        globalThis.console.error.mockClear();
+      });
+    });
+  });
+
   it(`should have deep equality when using toBe`, () => {
     const testObject = { prop1: 'yolo', prop2: "'sup" };
     const newReferenceToTestObject = testObject;
