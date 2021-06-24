@@ -1,4 +1,6 @@
+const { prettyPrint } = require('./utilities');
 const { expect: miniExpect } = require('./expect');
+
 describe('expect', () => {
   beforeEach(() => {
     globalThis.console.log = jest.fn();
@@ -29,7 +31,9 @@ describe('expect', () => {
       miniExpect(actual).toBe(equalityValue);
       expect(globalThis.console.error).toHaveBeenCalledTimes(1);
       expect(globalThis.console.error).toHaveBeenCalledWith(
-        `❌ expected ${actual} to equal ${equalityValue}`,
+        `❌ expected ${prettyPrint(actual)} to equal ${prettyPrint(
+          equalityValue,
+        )}`,
       );
       expect(globalThis.console.log).not.toHaveBeenCalled();
 
@@ -73,7 +77,9 @@ describe('expect', () => {
       expect(globalThis.console.log).not.toHaveBeenCalled();
       expect(globalThis.console.error).toHaveBeenCalledTimes(1);
       expect(globalThis.console.error).toHaveBeenCalledWith(
-        `❌ expected ${actual} to equal ${equalityValue}`,
+        `❌ expected ${prettyPrint(actual)} to equal ${prettyPrint(
+          equalityValue,
+        )}`,
       );
 
       globalThis.console.log.mockClear();

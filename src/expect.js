@@ -1,3 +1,5 @@
+const { prettyPrint } = require('./utilities');
+
 // expect(something).toBe(something2);
 
 function expect(actualValue) {
@@ -6,14 +8,22 @@ function expect(actualValue) {
       if (expectedValue == actualValue) {
         console.log('✅');
       } else {
-        console.error(`❌ expected ${actualValue} to equal ${expectedValue}`);
+        console.error(
+          `❌ expected ${prettyPrint(actualValue)} to equal ${prettyPrint(
+            expectedValue,
+          )}`,
+        );
       }
     },
     toEqual(expectedValue) {
       if (expectedValue === actualValue) {
         console.log('✅');
       } else {
-        console.error(`❌ expected ${actualValue} to equal ${expectedValue}`);
+        console.error(
+          `❌ expected ${prettyPrint(actualValue)} to equal ${prettyPrint(
+            expectedValue,
+          )}`,
+        );
       }
     },
   };
