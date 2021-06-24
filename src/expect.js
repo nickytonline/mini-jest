@@ -52,9 +52,10 @@ function expect(actualValue) {
     };
   };
 
-  functions.not = functions(true);
+  const object = functions(false)
+  object.not = functions(true);
 
-  return functions(false);
+  return object;
 }
 
 module.exports = {
